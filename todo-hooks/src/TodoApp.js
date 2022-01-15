@@ -1,33 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
+import useTodoState from "./Hooks/useTodoState";
 import TodoList from "./TodoList";
 import TodoForm from "./TodoForm";
-import { v4 as uuidv4 } from 'uuid';
 import { Paper, Typography, AppBar, Toolbar, Grid } from "@material-ui/core"
 
 
 function TodoApp() {
-    const initialTodos = [
-        { id: 1, task: "Feed Cat", completed: false },
-        { id: 2, task: "Buy Birthday Gift", completed: true },
-        { id: 3, task: "Call Mom", completed: false }
-    ];
-    const [todos, setTodos] = useState(initialTodos); // 1st
-    const addTodo = newTodoText => {
-        setTodos([...todos, { id: uuidv4(), task: newTodoText, completed: false }]);
-    }
-    const removeTodo = todoId => {
-        // filter out removed todo
-        // updateTodo will edit actual text
-        const updateTodos = todos.filter(todo => todo.id !== todoId);
-        // call setTodos with the new todos array
-        setTodos(updateTodos);
-    }
-    const toggleTodo = todoId => {
-        const updateTodos = todos.map(todo =>
-            todo.id === todoId ? { ...todo, completed: !todo.completed } : todo
-        );
-        setTodos(updateTodos);
-    };
+    const initialTodos = [{ id: 1, task: "Pet a monkey", completed: false }];
+    const { todos, addTodo, removeTodo, toggleTodo, editTodo } = useTodoState(
+        initialTodos
+    );
     return (
         <Paper
             style={{
@@ -47,7 +29,12 @@ function TodoApp() {
             <Grid container justify="center" style={{ marginTop: "1rem" }}>
                 <Grid item xs={11} md={8} lg={4}>
                     <TodoForm addTodo={addTodo} />
-                    <TodoList todos={todos} removeTodo={removeTodo} toggleTodo={toggleTodo} />
+                    <TodoList
+                        todos={todos}
+                        removeTodo={removeTodo}
+                        toggleTodo={toggleTodo}
+                        editTodo={editTodo}
+                    />
                 </Grid>
             </Grid>
         </Paper>
