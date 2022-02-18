@@ -23,4 +23,21 @@
 6. [Pokedex](pokedex)
 7. [Hooks Practice](hooks-practice)
 8. [Todo Hooks with Local Storage](todo-hooks)
-9. []()
+9. [Context Demo App](context-demo-app)
+10. [Todos Context useReducer](todos-context-usereducer)
+
+
+**useReducer Notes**
+
+- (accumulatedValue, nextItem) => nextAccumulatedValue
+- takes two values and "reduces" them down to one value
+
+**In TodoApp**
+- The two values provided to a reducer are:
+   - The current state
+   - An action that (may) update the state
+   - (state, action) => newState
+   - Current todos state and an action (add new todo, remove a todo, toggle a todo)
+   - Then return new version of todos or updated version of the state that will be used next time that reducer is called
+
+   
